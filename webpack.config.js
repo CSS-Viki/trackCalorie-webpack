@@ -3,6 +3,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin"); // Import the plugin
 
 module.exports = {
   mode: "development",
@@ -29,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /\node_modules/,
         use: {
           loader: "babel-loader",
           options: {
@@ -46,5 +47,9 @@ module.exports = {
       template: "./src/index.html",
     }),
     new MiniCssExtractPlugin(),
+    new CopyWebpackPlugin({
+      // Add this new plugin configuration
+      patterns: [{ from: "./src/favicon.ico", to: "favicon.ico" }],
+    }),
   ],
 };
